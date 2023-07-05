@@ -1,6 +1,6 @@
 const http = require("http")
 const fs = require("fs")
-const object = require("./object.js")
+const object = require("./source/object.js")
 
 const PORT = 8080;
 
@@ -15,12 +15,12 @@ var options = {
 
 // Server created
 const server = http.createServer((req,res)=>{
-    res.end(fs.readFileSync('data.txt','utf-8'))
+    res.end(fs.readFileSync('output/data.txt','utf-8'))
 })
 
 // GET request created
 http.request(options,(res)=>{
-    var file = fs.readFileSync('text.json','utf-8')//reading 'text.json'
+    var file = fs.readFileSync('source/text.json','utf-8')//reading 'text.json'
 
     res.setEncoding('utf8');
 
@@ -28,7 +28,7 @@ http.request(options,(res)=>{
         obj = JSON.stringify({...object ,...JSON.parse(file)})//append 'text.json' data into object from 'object.js'
 
         // writing retrieved data in 'data.txt' 
-        fs.writeFile('data.txt', obj,(err)=>{if(err!==null)console.log(err) 
+        fs.writeFile('output/data.txt', obj,(err)=>{if(err!==null)console.log(err) 
             else{console.log(data)}})//print 'data.txt' file content on console
     })
 
